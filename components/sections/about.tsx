@@ -113,7 +113,7 @@ export default function AboutSection() {
             </Grid>
 
             {/* CTA */}
-            <Button
+            {/* <Button
               variant="contained"
               sx={{
                 textTransform: "none",
@@ -130,62 +130,62 @@ export default function AboutSection() {
               }}
             >
               Book Appointment
-            </Button>
+            </Button> */}
 
-<Grid container spacing={4}>
-  {features.map((item, i) => (
-    <Grid size={{ xs: 6, sm: 3 }} key={i}>
-      <Box sx={{ textAlign: "center" }}>
+            <Grid container spacing={4}>
+              {features.map((item, i) => (
+                <Grid size={{ xs: 6, sm: 3 }} key={i}>
+                  <Box sx={{ textAlign: "center" }}>
 
-        {/* ICON CIRCLE */}
-        <Box
-          sx={{
-            width: 100,          
-            height: 100,
-            borderRadius: "50%",
-            background: "#e6f4fb", 
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            mx: "auto",
-            mb: 2,
-            color: "#0284c7",
-          }}
-        >
-          {item.icon}
-          {/* ICON SIZE
+                    {/* ICON CIRCLE */}
+                    <Box
+                      sx={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: "50%",
+                        background: "#e6f4fb",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        mx: "auto",
+                        mb: 2,
+                        color: "#0284c7",
+                      }}
+                    >
+                      {item.icon}
+                      {/* ICON SIZE
           <Box sx={{ fontSize: 36 }}>
             {item.icon}
           </Box> */}
-        </Box>
+                    </Box>
 
-        {/* TITLE */}
-        <Typography
-          sx={{
-            fontSize: "15px",
-            fontWeight: 600,
-            color: "#1e293b",   // ⬅️ darker (important)
-            mb: 0.5,
-          }}
-        >
-          {item.title}
-        </Typography>
+                    {/* TITLE */}
+                    <Typography
+                      sx={{
+                        fontSize: "15px",
+                        fontWeight: 600,
+                        color: "#1e293b",   // ⬅️ darker (important)
+                        mb: 0.5,
+                      }}
+                    >
+                      {item.title}
+                    </Typography>
 
-        {/* SUBTITLE */}
-        <Typography
-          sx={{
-            fontSize: "13px",
-            color: "#0284c7",  // ⬅️ clearer blue
-            fontWeight: 500,
-          }}
-        >
-          {item.subtitle}
-        </Typography>
+                    {/* SUBTITLE */}
+                    <Typography
+                      sx={{
+                        fontSize: "13px",
+                        color: "#0284c7",  // ⬅️ clearer blue
+                        fontWeight: 500,
+                      }}
+                    >
+                      {item.subtitle}
+                    </Typography>
 
-      </Box>
-    </Grid>
-  ))}
-</Grid>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
 
           </Grid>
 

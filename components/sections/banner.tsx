@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, Stack } from "@mui/material";
+import Link from "next/link";
 
 
 const images = [
@@ -92,25 +93,27 @@ const HeroBanner = () => {
             Appointment
           </Button>
 
-          <Button
-            variant="outlined"
-            sx={{
-              px: 4,
-              py: 1.5,
-              borderRadius: "10px",
-              textTransform: "none",
-              fontWeight: 600,
-              color: "#fff",
-              borderColor: "rgba(255,255,255,0.6)",
-              backdropFilter: "blur(6px)",
-              "&:hover": {
-                borderColor: "#fff",
-                backgroundColor: "rgba(255,255,255,0.1)",
-              },
-            }}
-          >
-            Find Doctor
-          </Button>
+          <Link href="/doctor" style={{ textDecoration: "none" }}>
+  <Button
+    variant="outlined"
+    sx={{
+      px: 4,
+      py: 1.5,
+      borderRadius: "10px",
+      textTransform: "none",
+      fontWeight: 600,
+      color: "#fff",
+      borderColor: "rgba(255,255,255,0.6)",
+      backdropFilter: "blur(6px)",
+      "&:hover": {
+        borderColor: "#fff",
+        backgroundColor: "rgba(255,255,255,0.1)",
+      },
+    }}
+  >
+    Find Doctor
+  </Button>
+</Link>
         </Stack>
       </Box>
     </Box>
