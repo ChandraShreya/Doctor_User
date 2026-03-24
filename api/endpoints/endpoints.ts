@@ -15,6 +15,9 @@ export const endpoints ={
         history:`/user/history`
         
     },
+    areaMap:{
+        location:`/diagnostic/nearby`
+    }
     
 }
 
@@ -30,9 +33,8 @@ export const collectionOfEndpoints:string[]=[
     endpoints.auth.logout,
     endpoints.auth.resetLink,
     endpoints.auth.resetpassword,
-    endpoints.doctorList.history
-    
-    
+    endpoints.doctorList.history,
+    endpoints.areaMap.location
 
 ]
 

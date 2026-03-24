@@ -189,6 +189,10 @@ const historyList = Array.isArray(historyPayload)
               <Link href="/doctor" style={{ textDecoration: "none" }}>
                 <Typography sx={menuStyle}>DOCTORS</Typography>
               </Link>
+
+              <Link href="/area-map" style={{ textDecoration: "none" }}>
+                <Typography sx={menuStyle}>DIAGNOSTICS</Typography>
+              </Link>
             </Box>
 
             {/*  RIGHT SIDE */}

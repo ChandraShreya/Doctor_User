@@ -1,9 +1,9 @@
 "use client";
 
-import DoctorListPage from "@/components/doctor/doctor-list";
+import AreaMap from "@/components/doctor/area-map";
 import { Box, Container } from "@mui/material";
 
-export default function DoctorPage() {
+export default function AreaMapPage() {
   return (
     <Box
       sx={{
@@ -24,7 +24,7 @@ export default function DoctorPage() {
             px: { xs: 2, md: 3 },
           }}
         >
-          <DoctorListPage />
+          <AreaMap />
         </Container>
       </Box>
     </Box>
