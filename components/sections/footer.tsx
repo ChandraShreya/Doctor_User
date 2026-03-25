@@ -22,14 +22,9 @@ export default function Footer() {
   return (
     <Box
       sx={{
-        width: "100%",
         bgcolor: "#0b1220",
         color: "#94a3b8",
         mt: 10,
-        marginLeft: "calc(-50vw + 50%)",
-        marginRight: "calc(-50vw + 50%)",
-        paddingLeft: "calc(50vw - 50%)",
-        paddingRight: "calc(50vw - 50%)",
       }}
     >
       <Container maxWidth="lg" sx={{ py: 8 }}>
