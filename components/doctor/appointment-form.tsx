@@ -72,7 +72,7 @@ const handleBook = () => {
   const userName = localStorage.getItem("userName") || localStorage.getItem("email");
 
   if (!userId || !userName) {
-    alert("User not logged in");
+    toast.error("Please login");
     return;
   }
 

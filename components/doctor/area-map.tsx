@@ -372,7 +372,7 @@
 
 //   return (
 //     <Box sx={{ mt: "80px", px: { xs: 2, md: 4 }, mb: 6 }}>
-      
+
 //       {/* HEADER */}
 //       <Box textAlign="center" mb={4}>
 //         <Typography variant="h4" fontWeight={700}>
@@ -528,11 +528,12 @@ import {
   Card,
   CardContent,
   CircularProgress,
+  MenuItem,
 } from "@mui/material";
 
 import { useNearbyDiagnosticsQuery } from "@/customhooks/query/areaMap.query.hooks";
 
-// ✅ Disable SSR for map
+
 const Map = dynamic(() => import("./mapComponent"), { ssr: false });
 
 const nearestDistanceOptions = [1000, 2000, 5000, 10000];
@@ -544,10 +545,10 @@ const AreaMap = () => {
   const [locationQuery, setLocationQuery] = useState("");
   const [isSearchLoading, setIsSearchLoading] = useState(false);
 
-  // ✅ NEW: selected card
+
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  // 📍 Get user location
+
   useEffect(() => {
     if (!navigator.geolocation) {
       setGeoError("Geolocation is not supported by your browser.");
@@ -567,7 +568,7 @@ const AreaMap = () => {
     );
   }, []);
 
-  // 🔍 Search location
+
   const handleSearchByLocation = async () => {
     if (!locationQuery.trim()) {
       setGeoError("Enter a location name.");
@@ -600,7 +601,7 @@ const AreaMap = () => {
     }
   };
 
-  // 📡 Fetch nearby diagnostics
+
   const {
     data: mapData,
     isLoading,
@@ -615,192 +616,247 @@ const AreaMap = () => {
     if (location) refetch();
   }, [location, radius, refetch]);
 
-//   return (
-//     <Box sx={{ mt: "80px", px: { xs: 2, md: 4 }, mb: 6 }}>
-      
-//       {/* HEADER */}
-//       <Box textAlign="center" mb={4}>
-//         <Typography variant="h4" fontWeight={700}>
-//           Nearby Diagnostics
-//         </Typography>
-//         <Typography color="#64748b" mt={1}>
-//           Find diagnostic centers near you
-//         </Typography>
-//       </Box>
 
-//       {/* SEARCH */}
-//       <Box display="flex" justifyContent="center" gap={2} mb={3} flexWrap="wrap">
-//         <TextField
-//           label="Search location"
-//           value={locationQuery}
-//           onChange={(e) => setLocationQuery(e.target.value)}
-//           sx={{ minWidth: 280 }}
-//         />
+  // return (
+  //   <Box
+  //     sx={{
+  //       mt: "40px",
+  //       px: { xs: 2, md: 6 },
+  //       py: 3,
+  //       // background: "#f8fbff",
+  //       minHeight: "100vh",
+  //     }}
+  //   >
 
-//         <Button
-//           variant="contained"
-//           onClick={handleSearchByLocation}
-//           disabled={isSearchLoading}
-//           sx={{
-//             borderRadius: "10px",
-//             background: "linear-gradient(90deg,#5e72e4,#4f63d6)",
-//           }}
-//         >
-//           {isSearchLoading ? "Searching..." : "Search"}
-//         </Button>
-//       </Box>
+  //     <Box maxWidth="900px" mx="auto" mb={4}>
+  //       <Typography fontSize={{ xs: 26, md: 34 }} fontWeight={700}>
+  //         Nearby Diagnostics
+  //       </Typography>
 
-//       {/* FILTER */}
-//       <Box display="flex" justifyContent="center" gap={2} mb={3}>
-//         {nearestDistanceOptions.map((opt) => (
-//           <Button
-//             key={opt}
-//             variant={radius === opt ? "contained" : "outlined"}
-//             onClick={() => setRadius(opt)}
-//             sx={{ borderRadius: "20px" }}
-//           >
-//             {opt / 1000} km
-//           </Button>
-//         ))}
-//       </Box>
+  //       <Typography color="#64748b" mt={1}>
+  //         Easily find trusted diagnostic centers near your location. Compare distances,
+  //         explore facilities, and get directions instantly — all in one place.
+  //       </Typography>
+  //     </Box>
 
-//       {/* ERROR */}
-//       {geoError && (
-//         <Typography color="error" textAlign="center" mb={2}>
-//           {geoError}
-//         </Typography>
-//       )}
+  //     {/* SEARCH */}
+  //     <Box display="flex" gap={2} mb={3} flexWrap="wrap">
+  //       <TextField
+  //         placeholder="Search location..."
+  //         value={locationQuery}
+  //         onChange={(e) => setLocationQuery(e.target.value)}
+  //         sx={{
+  //           minWidth: 280,
+  //           background: "#fff",
+  //           borderRadius: "10px",
+  //         }}
+  //       />
 
-//       {/* LOADING */}
-//       {isLoading && (
-//         <Box display="flex" justifyContent="center">
-//           <CircularProgress />
-//         </Box>
-//       )}
+  //       <Button
+  //         onClick={handleSearchByLocation}
+  //         disabled={isSearchLoading}
+  //         sx={{
+  //           px: 4,
+  //           borderRadius: "10px",
+  //           background: "#1976d2",
+  //           color: "#fff",
+  //           fontWeight: 600,
+  //         }}
+  //       >
+  //         {isSearchLoading ? "Searching..." : "Search"}
+  //       </Button>
+  //     </Box>
 
-//       {/* MAIN LAYOUT */}
-//       <Box
-//         sx={{
-//           display: "grid",
-//           gridTemplateColumns: { xs: "1fr", md: "1fr 1.5fr" },
-//           gap: 3,
-//         }}
-//       >
-//         {/* LEFT: CARDS */}
-//         <Box sx={{ maxHeight: "600px", overflowY: "auto" }}>
-//           {mapData?.data?.map((item: any) => {
-//             const [lng, lat] = item.location?.coordinates ?? [0, 0];
-//             const isActive = selectedId === item._id;
+  //     {/* FILTER */}
+  //     <Box display="flex" gap={2} mb={4}>
+  //       {nearestDistanceOptions.map((opt) => (
+  //         <Button
+  //           key={opt}
+  //           onClick={() => setRadius(opt)}
+  //           sx={{
+  //             borderRadius: "999px",
+  //             px: 3,
+  //             background: radius === opt ? "#1976d2" : "#fff",
+  //             color: radius === opt ? "#fff" : "#1976d2",
+  //             border: "1px solid #e2e8f0",
+  //           }}
+  //         >
+  //           {opt / 1000} km
+  //         </Button>
+  //       ))}
+  //     </Box>
 
-//             return (
-//               <Card
-//                 key={item._id}
-//                 sx={{
-//                   mb: 2,
-//                   borderRadius: 3,
-//                   cursor: "pointer",
-//                   border: isActive ? "2px solid #5e72e4" : "none",
-//                   transition: "0.3s",
-//                   "&:hover": {
-//                     transform: "translateY(-4px)",
-//                     boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
-//                   },
-//                 }}
-//                 onClick={() => {
-//                   setLocation({ lat, lng });
-//                   setSelectedId(item._id);
-//                 }}
-//               >
-//                 <CardContent>
-//                   <Typography fontWeight={700}>
-//                     {item.name}
-//                   </Typography>
+  //     {/* ERROR */}
+  //     {geoError && (
+  //       <Typography color="error" mb={2}>
+  //         {geoError}
+  //       </Typography>
+  //     )}
 
-//                   <Typography color="#64748b" fontSize={14}>
-//                     {item.address}
-//                   </Typography>
+  //     {/* LOADING */}
+  //     {isLoading && (
+  //       <Box display="flex" justifyContent="center">
+  //         <CircularProgress />
+  //       </Box>
+  //     )}
 
-//                   <Typography mt={1}>
-//                     📞 {item.phone}
-//                   </Typography>
+  //     {/* GRID */}
+  //     <Box
+  //       sx={{
+  //         display: "grid",
+  //         gridTemplateColumns: { xs: "1fr", md: "1.2fr 1fr" }, 
+  //         gap: 4,
+  //       }}
+  //     >
+        
+  //       <Box sx={{ maxHeight: "650px", overflowY: "auto", pr: 1 }}>
+  //         {mapData?.data?.map((item: any) => {
+  //           const [lng, lat] = item.location?.coordinates ?? [0, 0];
+  //           const isActive = selectedId === item._id;
 
-//                   <Typography sx={{ color: "#5e72e4", fontWeight: 600 }}>
-//                     {(item.distance / 1000).toFixed(2)} km away
-//                   </Typography>
+  //           return (
+  //             <Card
+  //               key={item._id}
+  //               onClick={() => {
+  //                 setLocation({ lat, lng });
+  //                 setSelectedId(item._id);
+  //               }}
+  //               sx={{
+  //                 mb: 3,
+  //                 borderRadius: "18px",
+  //                 cursor: "pointer",
+  //                 background: "#fff",
+  //                 border: isActive
+  //                   ? "2px solid #1976d2"
+  //                   : "1px solid #e2e8f0",
+  //                 boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+  //                 transition: "0.3s",
+  //                 "&:hover": {
+  //                   transform: "translateY(-4px)",
+  //                 },
+  //               }}
+  //             >
+  //               <CardContent sx={{ p: 3 }}>
+  //                 <Typography fontWeight={700} fontSize={18}>
+  //                   {item.name}
+  //                 </Typography>
 
-//                   <Button
-//                     size="small"
-//                     sx={{ mt: 1 }}
-//                     onClick={(e) => {
-//                       e.stopPropagation();
-//                       window.open(
-//                         `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
-//                         "_blank"
-//                       );
-//                     }}
-//                   >
-//                     Directions
-//                   </Button>
-//                 </CardContent>
-//               </Card>
-//             );
-//           })}
-//         </Box>
+  //                 <Typography color="#64748b" mt={0.5}>
+  //                   {item.address}
+  //                 </Typography>
 
-//         {/* RIGHT: MAP */}
-//         <Box
-//   sx={{
-//     height: "600px",
-//     width: "100%",
-//     position: "relative",
-//     borderRadius: 3,
-//     overflow: "hidden",
-//   }}
-// >
-//           <Map
-//             data={mapData?.data}
-//             center={location}
-//             selectedId={selectedId}
-//           />
-//         </Box>
-//       </Box>
-//     </Box>
-//   );
+  //                 <Typography mt={1}>
+  //                   📞 {item.phone}
+  //                 </Typography>
+
+  //                 <Typography
+  //                   mt={1}
+  //                   sx={{ color: "#1976d2", fontWeight: 600 }}
+  //                 >
+  //                   {(item.distance / 1000).toFixed(2)} km away
+  //                 </Typography>
+
+  //                 <Button
+  //                   sx={{
+  //                     mt: 2,
+  //                     textTransform: "none",
+  //                     fontWeight: 600,
+  //                     color: "#1976d2",
+  //                   }}
+  //                   onClick={(e) => {
+  //                     e.stopPropagation();
+  //                     window.open(
+  //                       `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
+  //                       "_blank"
+  //                     );
+  //                   }}
+  //                 >
+  //                   Get Directions →
+  //                 </Button>
+  //               </CardContent>
+  //             </Card>
+  //           );
+  //         })}
+  //       </Box>
+
+  //       <Box
+  //         sx={{
+  //           height: "550px", 
+  //           borderRadius: "16px",
+  //           overflow: "hidden",
+  //           background: "#fff",
+  //           border: "1px solid #e2e8f0",
+  //         }}
+  //       >
+  //         <Map
+  //           data={mapData?.data}
+  //           center={location}
+  //           selectedId={selectedId}
+  //         />
+  //       </Box>
+  //     </Box>
+  //   </Box>
+  // );
 
 
-
-return (
+  return (
   <Box
     sx={{
-      mt: "40px", // 🔥 reduced top space
+      mt: "20px",
       px: { xs: 2, md: 6 },
       py: 3,
-      background: "#f8fbff",
-      minHeight: "100vh",
     }}
   >
-    {/* HEADER + DESCRIPTION */}
-    <Box maxWidth="900px" mx="auto" mb={4}>
-      <Typography fontSize={{ xs: 26, md: 34 }} fontWeight={700}>
-        Nearby Diagnostics
+    {/* HEADER */}
+    <Box textAlign="center" maxWidth="700px" mx="auto" mb={4}>
+      <Typography
+        fontSize={{ xs: 26, md: 34 }}
+        fontWeight={700}
+        sx={{ color: "#163c95" }}
+      >
+        We are available near you
       </Typography>
 
-      <Typography color="#64748b" mt={1}>
-        Easily find trusted diagnostic centers near your location. Compare distances,
-        explore facilities, and get directions instantly — all in one place.
+      <Typography
+        mt={1}
+        sx={{
+          color: "#7b94b8",
+          fontSize: "14px",
+          lineHeight: 1.6,
+        }}
+      >
+       We are committed to bringing quality healthcare closer to you. Explore our hospital branches across different locations and find the nearest center for trusted, 
+       convenient, and timely medical care.
       </Typography>
     </Box>
 
-    {/* SEARCH */}
-    <Box display="flex" gap={2} mb={3} flexWrap="wrap">
+    {/* SEARCH + FILTER */}
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      gap={2}
+      mb={5}
+      flexWrap="wrap"
+    >
       <TextField
         placeholder="Search location..."
         value={locationQuery}
         onChange={(e) => setLocationQuery(e.target.value)}
         sx={{
-          minWidth: 280,
+          width: { xs: "100%", sm: 700 },
           background: "#fff",
-          borderRadius: "10px",
+          borderRadius: "999px",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "999px",
+            height: 56,
+            fontSize: 16,
+            pr: 2,
+          },
+          "& .MuiOutlinedInput-input::placeholder": {
+            opacity: 0.6,
+            fontSize: 16,
+          },
         }}
       />
 
@@ -808,39 +864,46 @@ return (
         onClick={handleSearchByLocation}
         disabled={isSearchLoading}
         sx={{
-          px: 4,
-          borderRadius: "10px",
+          px: 6,
+          height: 56,
+          borderRadius: "999px",
           background: "#1976d2",
           color: "#fff",
+          textTransform: "none",
           fontWeight: 600,
+          fontSize: 15,
         }}
       >
         {isSearchLoading ? "Searching..." : "Search"}
       </Button>
-    </Box>
 
-    {/* FILTER */}
-    <Box display="flex" gap={2} mb={4}>
-      {nearestDistanceOptions.map((opt) => (
-        <Button
-          key={opt}
-          onClick={() => setRadius(opt)}
-          sx={{
+      <TextField
+        select
+        value={radius}
+        onChange={(e) => setRadius(Number(e.target.value))}
+        sx={{
+          minWidth: 140,
+          background: "#fff",
+          borderRadius: "999px",
+
+          "& .MuiOutlinedInput-root": {
             borderRadius: "999px",
-            px: 3,
-            background: radius === opt ? "#1976d2" : "#fff",
-            color: radius === opt ? "#fff" : "#1976d2",
-            border: "1px solid #e2e8f0",
-          }}
-        >
-          {opt / 1000} km
-        </Button>
-      ))}
+            height: 56,
+            fontSize: 15,
+          },
+        }}
+      >
+        {nearestDistanceOptions.map((opt) => (
+          <MenuItem key={opt} value={opt}>
+            {opt / 1000} km
+          </MenuItem>
+        ))}
+      </TextField>
     </Box>
 
     {/* ERROR */}
     {geoError && (
-      <Typography color="error" mb={2}>
+      <Typography color="error" mb={2} textAlign="center">
         {geoError}
       </Typography>
     )}
@@ -852,16 +915,41 @@ return (
       </Box>
     )}
 
-    {/* MAIN GRID */}
+    {/* WRAPPER CONTENT */}
     <Box
       sx={{
-        display: "grid",
-        gridTemplateColumns: { xs: "1fr", md: "1.2fr 1fr" }, // 🔥 map smaller
-        gap: 4,
+        borderRadius: "20px",
+        px: { xs: 2, md: 0 },
+        mb: 2,
       }}
     >
-      {/* LEFT: BIG CARDS */}
-      <Box sx={{ maxHeight: "650px", overflowY: "auto", pr: 1 }}>
+      {/* MAIN GRID - LEFT: CARDS (2 COLUMNS), RIGHT: MAP (LARGER) */}
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            lg: "1.1fr 1.2fr",
+          },
+          gap: 3,
+          alignItems: "start",
+        }}
+      >
+        {/* LEFT - 2 COLUMN CARD LAYOUT */}
+        <Box
+        sx={{
+          maxHeight: "700px",
+          overflowY: "auto",
+          pr: 1.5,
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+          },
+          gap: 2.5,
+          alignContent: "start",
+        }}
+      >
         {mapData?.data?.map((item: any) => {
           const [lng, lat] = item.location?.coordinates ?? [0, 0];
           const isActive = selectedId === item._id;
@@ -874,46 +962,67 @@ return (
                 setSelectedId(item._id);
               }}
               sx={{
-                mb: 3,
-                borderRadius: "18px",
+                borderRadius: "16px",
                 cursor: "pointer",
                 background: "#fff",
                 border: isActive
-                  ? "2px solid #1976d2"
+                  ? "2px solid #163c95"
                   : "1px solid #e2e8f0",
-                boxShadow: "0 8px 24px rgba(0,0,0,0.06)",
+                boxShadow: isActive 
+                  ? "0 8px 24px rgba(22, 60, 149, 0.12)"
+                  : "0 6px 16px rgba(0,0,0,0.06)",
                 transition: "0.3s",
+                p: 3,
+                minHeight: "220px",
+                display: "flex",
+                flexDirection: "column",
+
                 "&:hover": {
                   transform: "translateY(-4px)",
+                  boxShadow: "0 12px 28px rgba(0,0,0,0.1)",
                 },
               }}
             >
-              <CardContent sx={{ p: 3 }}>
-                <Typography fontWeight={700} fontSize={18}>
-                  {item.name}
-                </Typography>
+              <Typography fontWeight={700} fontSize={16} sx={{ color: "#163c95" }}>
+                {item.name}
+              </Typography>
 
-                <Typography color="#64748b" mt={0.5}>
-                  {item.address}
-                </Typography>
+              <Typography fontSize={13} color="#64748b" mt={1} sx={{ flex: 1 }}>
+                📍 {item.address}
+              </Typography>
 
-                <Typography mt={1}>
-                  📞 {item.phone}
-                </Typography>
+              <Typography fontSize={13} mt={1} sx={{ color: "#475569" }}>
+                📞 {item.phone}
+              </Typography>
 
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                mt={2}
+                pt={2}
+                sx={{ borderTop: "1px solid #e2e8f0" }}
+              >
                 <Typography
-                  mt={1}
-                  sx={{ color: "#1976d2", fontWeight: 600 }}
+                  sx={{
+                    color: "#2563eb",
+                    fontWeight: 700,
+                    fontSize: 14,
+                  }}
                 >
-                  {(item.distance / 1000).toFixed(2)} km away
+                  {(item.distance / 1000).toFixed(2)} km
                 </Typography>
 
                 <Button
+                  size="small"
                   sx={{
-                    mt: 2,
                     textTransform: "none",
+                    fontSize: 13,
                     fontWeight: 600,
-                    color: "#1976d2",
+                    color: "#2563eb",
+                    "&:hover": {
+                      background: "rgba(37, 99, 235, 0.08)",
+                    },
                   }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -923,22 +1032,25 @@ return (
                     );
                   }}
                 >
-                  Get Directions →
+                  Directions →
                 </Button>
-              </CardContent>
+              </Box>
             </Card>
           );
         })}
       </Box>
 
-      {/* RIGHT: MAP (COMPRESSED) */}
+      {/* RIGHT - LARGER MAP */}
       <Box
         sx={{
-          height: "550px", // 🔥 slightly smaller
-          borderRadius: "16px",
+          height: "700px",
+          borderRadius: "18px",
           overflow: "hidden",
           background: "#fff",
           border: "1px solid #e2e8f0",
+          boxShadow: "0 8px 28px rgba(0,0,0,0.08)",
+          position: "sticky",
+          top: 20,
         }}
       >
         <Map
@@ -947,6 +1059,8 @@ return (
           selectedId={selectedId}
         />
       </Box>
+    </Box>
+    {/* END OF WRAPPER */}
     </Box>
   </Box>
 );

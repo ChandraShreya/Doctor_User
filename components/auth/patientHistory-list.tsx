@@ -14,6 +14,7 @@ import {
   Paper,
 } from "@mui/material";
 import useUserHistory from "@/customhooks/query/auth.query.hooks";
+import PageLoader from "@/components/common/page-loader";
 
 
 const ITEMS_PER_PAGE = 6;
@@ -95,103 +96,144 @@ export default function HistoryPage() {
     { label: "Cancelled", value: "cancelled" },
   ];
 
-  return (
-    <Box sx={root}>
-      {/* HEADER */}
-      <Box sx={{ mb: 5 }}>
-        <Typography sx={title}>Appointment History</Typography>
-        <Typography sx={subtitle}>
-          View and manage your consultations
-        </Typography>
-      </Box>
+return (
+  <>
+    {isLoading && <PageLoader message="Loading appointments..." />}
 
-      {/* FILTER BAR (FIXED) */}
-      <Box sx={filterWrapper}>
-        {filters.map((item) => {
-          const active = filter === item.value;
+<Box
+  sx={{
+    pt: "100px", 
+    pb: 6,
+  }}
+>
+  {/* MAIN WRAPPER */}
+  <Box
+    sx={{
+      maxWidth: "750px",
+      mx: "auto",
+      px: { xs: 2, md: 0 },
+    }}
+  >
+    {/* HEADER */}
+    <Box
+      sx={{
+        textAlign: "center",
+        mb: 4,
+      }}
+    >
+      <Typography sx={title}>
+        Appointment History
+      </Typography>
 
-          return (
-            <Box
-              key={item.value}
-              onClick={() => {
-                setFilter(item.value);
-                setPage(1);
-              }}
-              sx={{
-  ...filterItem,
-  color: active ? "#0d6e8a" : "#64748b",
-  background: active ? "#e0f2fe" : "transparent", 
-  border: active ? "1px solid #bae6fd" : "1px solid transparent",
-}}
-            >
-              {item.label} ({getCount(item.value)})
-            </Box>
-          );
-        })}
-      </Box>
-
-      {/* LIST */}
-      <Stack spacing={2}>
-        {paginatedData.map((item: any) => {
-          const doctor = item?.doctorId || {};
-          const st = (item.status || "").toLowerCase().trim();
-
-          let chipStyle: any = chipPending;
-          if (st.includes("complete")) chipStyle = chipSuccess;
-          else if (st.includes("cancel") || st.includes("reject"))
-            chipStyle = chipError;
-
-          return (
-            <Paper key={item._id} sx={card}>
-              <Box sx={rowTop}>
-                <Box>
-                  <Typography sx={doctorName}>
-                    {doctor.name || "Unknown Doctor"}
-                  </Typography>
-
-                  <Typography sx={dateText}>
-                    {item.date} • {item.time}
-                  </Typography>
-                </Box>
-
-                <Chip label={item.status} sx={chipStyle} />
-              </Box>
-
-              <Divider sx={{ my: 2 }} />
-
-              <Box sx={rowBottom}>
-                <Typography sx={fees}>
-                  ₹{doctor.fees ?? "-"}
-                </Typography>
-
-                {/* <Typography sx={address}>
-                  📍 {item?.address || "No address"}
-                </Typography> */}
-              </Box>
-            </Paper>
-          );
-        })}
-      </Stack>
-
-      {/* EMPTY */}
-      {filteredData.length === 0 && (
-        <Box sx={empty}>
-          <Typography>No appointments found</Typography>
-        </Box>
-      )}
-
-      {/* PAGINATION */}
-      {filteredData.length > ITEMS_PER_PAGE && (
-        <Stack alignItems="center" mt={5}>
-          <Pagination
-            count={totalPages}
-            page={page}
-            onChange={(_, value) => setPage(value)}
-          />
-        </Stack>
-      )}
+      <Typography sx={subtitle}>
+        Track and manage your appointments easily
+      </Typography>
     </Box>
-  );
+
+    {/* FILTER */}
+    <Box sx={filterWrapper}>
+      {filters.map((item) => {
+        const active = filter === item.value;
+
+        return (
+          <Box
+            key={item.value}
+            onClick={() => {
+              setFilter(item.value);
+              setPage(1);
+            }}
+            sx={{
+              ...filterItem,
+              color: active ? "#2563eb" : "#64748b",
+              background: active ? "#eff6ff" : "#f8fafc",
+              border: active
+                ? "1px solid #bfdbfe"
+                : "1px solid #e2e8f0",
+            }}
+          >
+            {item.label} ({getCount(item.value)})
+          </Box>
+        );
+      })}
+    </Box>
+
+    {/* LIST */}
+    <Stack spacing={2}>
+      {paginatedData.map((item: any) => {
+        const doctor = item?.doctorId || {};
+        const st = (item.status || "").toLowerCase().trim();
+
+        let chipStyle: any = chipPending;
+        if (st.includes("complete")) chipStyle = chipSuccess;
+        else if (st.includes("cancel") || st.includes("reject"))
+          chipStyle = chipError;
+
+        return (
+          <Paper
+            key={item._id}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              px: 3,
+              py: 2,
+              borderRadius: "12px",
+              border: "1px solid #e2e8f0",
+              background: "#fff",
+              transition: "0.25s",
+
+              "&:hover": {
+                borderColor: "#2563eb",
+                boxShadow: "0 6px 18px rgba(37,99,235,0.08)",
+                transform: "translateY(-2px)",
+              },
+            }}
+          >
+            {/* LEFT */}
+            <Box>
+              <Typography sx={doctorName}>
+                {doctor.name || "Unknown Doctor"}
+              </Typography>
+
+              <Typography sx={dateText}>
+                📅 {item.date} • ⏰ {item.time}
+              </Typography>
+            </Box>
+
+            {/* RIGHT */}
+            <Box display="flex" alignItems="center" gap={2}>
+              <Typography sx={fees}>
+                ₹{doctor.fees ?? "-"}
+              </Typography>
+
+              <Chip label={item.status} sx={chipStyle} />
+            </Box>
+          </Paper>
+        );
+      })}
+    </Stack>
+
+    {/* EMPTY */}
+    {filteredData.length === 0 && (
+      <Box sx={empty}>
+        <Typography>No appointments found</Typography>
+      </Box>
+    )}
+
+    {/* PAGINATION */}
+    {filteredData.length > ITEMS_PER_PAGE && (
+      <Stack alignItems="center" mt={5}>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={(_, value) => setPage(value)}
+        />
+      </Stack>
+    )}
+  </Box>
+</Box>
+  </>
+);
 }
 
 

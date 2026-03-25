@@ -26,7 +26,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MedicalServicesIcon from "@mui/icons-material/MedicalServices";
 import { Cookies } from "react-cookie";
 import useUserHistory, { useLogoutMutation, useUserProfileQuery } from "@/customhooks/query/auth.query.hooks";
-// import useUserHistory, { useLogoutMutation, useUserProfileQuery } from "@/customHooks/query/auth.query.hooks";
+
 
 interface NavbarProps {
   onSignupClick?: () => void;
@@ -62,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = ({ onSignupClick }) => {
       }
     };
 
-    // Check auth state on mount
+    
     checkAuthState();
 
     // Listen for storage changes 
@@ -181,17 +181,13 @@ const historyList = Array.isArray(historyPayload)
                 <Typography sx={menuStyle}>HOME</Typography>
               </Link>
 
-              <Link href="/about" style={{ textDecoration: "none" }}>
-                <Typography sx={menuStyle}>ABOUT</Typography>
-              </Link>
-
 
               <Link href="/doctor" style={{ textDecoration: "none" }}>
                 <Typography sx={menuStyle}>DOCTORS</Typography>
               </Link>
 
               <Link href="/area-map" style={{ textDecoration: "none" }}>
-                <Typography sx={menuStyle}>DIAGNOSTICS</Typography>
+                <Typography sx={menuStyle}>LOCATION</Typography>
               </Link>
             </Box>
 
