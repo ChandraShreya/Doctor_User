@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import Footer from "@/components/sections/footer";
 import Navbar from "@/components/sections/navbar";
 // import Navbar from "@/components/sections/navbar";
+import "leaflet/dist/leaflet.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
