@@ -27,7 +27,7 @@ const AppointmentModal = ({ open, onClose, doctor }: Props) => {
   const [date, setDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
 
-  // Fetch slots using the correct query hook
+  // Fetch slots using the  query hook
   const { data: slotData, isLoading } = useDoctorSlotsQuery(
     doctor?._id || "",
     date
@@ -47,7 +47,7 @@ const AppointmentModal = ({ open, onClose, doctor }: Props) => {
   ).values()
 );
 
-  //  Book mutation
+
   const { mutate: bookAppointment, isPending } =
     useBookAppointmentMutation();
 
@@ -60,14 +60,14 @@ const AppointmentModal = ({ open, onClose, doctor }: Props) => {
     }
   }, [open]);
 
-  //  Book handler
+
 const handleBook = () => {
   if (!date || !selectedSlot) {
     alert("Please select date & slot");
     return;
   }
 
-  // Get user data from localStorage
+
   const userId = localStorage.getItem("userId");
   const userName = localStorage.getItem("userName") || localStorage.getItem("email");
 

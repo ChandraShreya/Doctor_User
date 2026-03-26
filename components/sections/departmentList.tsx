@@ -81,7 +81,7 @@ export default function DepartmentSection() {
               fontSize: "15px",
             }}
           >
-            Medicore Hospital provides comprehensive multi super specialty
+            Averon Hospital provides comprehensive multi super specialty
             healthcare services supported by experienced consultants, skilled
             clinical teams, and evidence-based treatment protocols. Each
             department is equipped with advanced medical systems to ensure

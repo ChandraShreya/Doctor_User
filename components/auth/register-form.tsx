@@ -141,7 +141,7 @@ const onSubmit = async (data: any) => {
           </Typography>
 
           <Typography fontSize="13px" sx={{ opacity: 0.85 }}>
-            Access better healthcare with MediCore
+            Access better healthcare with Averon
           </Typography>
         </Box>
 
@@ -319,7 +319,7 @@ const onSubmit = async (data: any) => {
       fullWidth
         sx={{
     "& .MuiOutlinedInput-root": {
-      borderRadius: "12px", // 🔥 rounded corner
+      borderRadius: "12px", 
       height: 50,
 
       "& fieldset": {
@@ -363,7 +363,7 @@ const onSubmit = async (data: any) => {
       color: "#e3f2fd",
     },
 
-    // 🔥 animation
+    
     "@keyframes wave": {
       "0%, 60%, 100%": {
         transform: "translateY(0)",

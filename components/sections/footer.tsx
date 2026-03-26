@@ -193,7 +193,7 @@ export default function Footer() {
           fontSize: 13,
         }}
       >
-        © {new Date().getFullYear()} MediCore. Crafted with care.
+        © {new Date().getFullYear()} Averon. Crafted with care.
       </Box>
     </Box>
   );

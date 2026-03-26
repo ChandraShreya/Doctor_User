@@ -96,144 +96,247 @@ export default function HistoryPage() {
     { label: "Cancelled", value: "cancelled" },
   ];
 
-return (
-  <>
-    {isLoading && <PageLoader message="Loading appointments..." />}
+  return (
+    <>
+      {isLoading && <PageLoader message="Loading appointments..." />}
 
-<Box
-  sx={{
-    pt: "100px", 
-    pb: 6,
-  }}
->
-  {/* MAIN WRAPPER */}
-  <Box
-    sx={{
-      maxWidth: "750px",
-      mx: "auto",
-      px: { xs: 2, md: 0 },
-    }}
-  >
-    {/* HEADER */}
-    <Box
-      sx={{
-        textAlign: "center",
-        mb: 4,
-      }}
-    >
-      <Typography sx={title}>
-        Appointment History
-      </Typography>
+      <Box
+        sx={{
+          pt: "110px",
+          pb: 8,
+          minHeight: "calc(100vh - 140px)",
+          background: "#f4f7fb",
+        }}
+      >
+        {/* MAIN WRAPPER */}
+        <Box
+          sx={{
+            maxWidth: "1400px",
+            mx: "auto",
+            px: { xs: 2, md: 3 },
+          }}
+        >
+          {/* HEADER */}
+          <Box textAlign="center" mb={5}>
+            <Typography
+              sx={{
+                ...title,
+                color: "#1e3a8a",
+              }}
+            >
+              Appointment History
+            </Typography>
 
-      <Typography sx={subtitle}>
-        Track and manage your appointments easily
-      </Typography>
-    </Box>
+            <Typography
+              sx={{
+                ...subtitle,
+                color: "#94a3b8",
+                maxWidth: "600px",
+                textAlign: "center",
+                mx: "auto"
 
-    {/* FILTER */}
-    <Box sx={filterWrapper}>
-      {filters.map((item) => {
-        const active = filter === item.value;
-
-        return (
-          <Box
-            key={item.value}
-            onClick={() => {
-              setFilter(item.value);
-              setPage(1);
-            }}
-            sx={{
-              ...filterItem,
-              color: active ? "#2563eb" : "#64748b",
-              background: active ? "#eff6ff" : "#f8fafc",
-              border: active
-                ? "1px solid #bfdbfe"
-                : "1px solid #e2e8f0",
-            }}
-          >
-            {item.label} ({getCount(item.value)})
+              }}
+            >
+              View and manage all your past and upcoming appointments in one place.
+              Stay informed with detailed records including doctor information,
+              visit dates, and treatment summaries. Easily keep track of your healthcare
+              journey with organized and accessible data.
+            </Typography>
           </Box>
-        );
-      })}
-    </Box>
 
-    {/* LIST */}
-    <Stack spacing={2}>
-      {paginatedData.map((item: any) => {
-        const doctor = item?.doctorId || {};
-        const st = (item.status || "").toLowerCase().trim();
-
-        let chipStyle: any = chipPending;
-        if (st.includes("complete")) chipStyle = chipSuccess;
-        else if (st.includes("cancel") || st.includes("reject"))
-          chipStyle = chipError;
-
-        return (
-          <Paper
-            key={item._id}
+          {/* CARD WRAPPER */}
+          <Box
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              px: 3,
-              py: 2,
-              borderRadius: "12px",
-              border: "1px solid #e2e8f0",
-              background: "#fff",
-              transition: "0.25s",
-
-              "&:hover": {
-                borderColor: "#2563eb",
-                boxShadow: "0 6px 18px rgba(37,99,235,0.08)",
-                transform: "translateY(-2px)",
-              },
+              background: "#ffffff",
+              borderRadius: "18px",
+              p: { xs: 2, md: 3 },
+              boxShadow: "0 6px 20px rgba(0,0,0,0.04)",
+              border: "1px solid #e5eaf0",
             }}
           >
-            {/* LEFT */}
-            <Box>
-              <Typography sx={doctorName}>
-                {doctor.name || "Unknown Doctor"}
-              </Typography>
+            {/* FILTER */}
+            <Box
+              sx={{
+                ...filterWrapper,
+                justifyContent: "center",
+                flexWrap: "wrap",
+                mb: 3,
+              }}
+            >
+              {filters.map((item) => {
+                const active = filter === item.value;
 
-              <Typography sx={dateText}>
-                📅 {item.date} • ⏰ {item.time}
-              </Typography>
+                return (
+                  <Box
+                    key={item.value}
+                    onClick={() => {
+                      setFilter(item.value);
+                      setPage(1);
+                    }}
+                    sx={{
+                      ...filterItem,
+                      px: 3,
+                      py: 1.2,
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: active ? "#2563eb" : "#64748b",
+                      background: active ? "#e8f1ff" : "#f1f5f9",
+                      border: active
+                        ? "1px solid #bfdbfe"
+                        : "1px solid #e2e8f0",
+                    }}
+                  >
+                    {item.label} ({getCount(item.value)})
+                  </Box>
+                );
+              })}
             </Box>
 
-            {/* RIGHT */}
-            <Box display="flex" alignItems="center" gap={2}>
-              <Typography sx={fees}>
-                ₹{doctor.fees ?? "-"}
-              </Typography>
+            {/* LIST */}
+            <Stack spacing={2.5}>
+              {paginatedData.map((item: any) => {
+                const doctor = item?.doctorId || {};
+                const st = (item.status || "").toLowerCase().trim();
 
-              <Chip label={item.status} sx={chipStyle} />
-            </Box>
-          </Paper>
-        );
-      })}
-    </Stack>
 
-    {/* EMPTY */}
-    {filteredData.length === 0 && (
-      <Box sx={empty}>
-        <Typography>No appointments found</Typography>
+                let statusColor = "#f59e0b"; // pending
+                let bgColor = "#fff7ed";
+
+                if (st.includes("complete") || st.includes("confirm")) {
+                  statusColor = "#16a34a";
+                  bgColor = "#ecfdf5";
+                } else if (st.includes("cancel") || st.includes("reject")) {
+                  statusColor = "#dc2626";
+                  bgColor = "#fef2f2";
+                }
+
+
+                const formattedDate = new Date(item.date).toLocaleDateString(
+                  "en-IN",
+                  {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  }
+                );
+
+                return (
+                  <Paper
+                    key={item._id}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      px: 3,
+                      py: 2.5,
+                      borderRadius: "14px",
+                      border: "1px solid #e2e8f0",
+                      background: "#ffffff",
+                      transition: "0.25s",
+                      position: "relative",
+
+                      "&:hover": {
+                        borderColor: "#2563eb",
+                        boxShadow: "0 10px 25px rgba(0,0,0,0.06)",
+                        transform: "translateY(-2px)",
+                      },
+                    }}
+                  >
+                    {/* LEFT */}
+                    <Box>
+                      <Typography
+                        sx={{
+                          fontWeight: 600,
+                          fontSize: 16,
+                          color: "#0f172a",
+                          mb: 0.6,
+                        }}
+                      >
+                        {doctor.name || "Unknown Doctor"}
+                      </Typography>
+
+                      {/* DATE */}
+                      <Box display="flex" gap={2}>
+                        <Typography
+                          sx={{
+                            fontSize: 13,
+                            color: "#64748b",
+                            fontWeight: 500,
+                          }}
+                        >
+                          📅 {formattedDate}
+                        </Typography>
+
+                        <Typography
+                          sx={{
+                            fontSize: 13,
+                            fontWeight: 700,
+                            color: "#2563eb",
+                          }}
+                        >
+                          ⏰ {item.time}
+                        </Typography>
+                      </Box>
+                    </Box>
+
+                    {/* RIGHT */}
+                    <Box display="flex" alignItems="center" gap={3}>
+                      <Typography
+                        sx={{
+                          fontWeight: 700,
+                          fontSize: 15,
+                          color: "#0d6e8a",
+                        }}
+                      >
+                        ₹{doctor.fees ?? "-"}
+                      </Typography>
+
+                      <Box
+                        sx={{
+                          px: 2,
+                          py: 0.6,
+                          borderRadius: "999px",
+                          fontSize: 12,
+                          fontWeight: 600,
+                          color: statusColor,
+                          background: bgColor,
+                        }}
+                      >
+                        {item.status}
+                      </Box>
+                    </Box>
+                  </Paper>
+                );
+              })}
+            </Stack>
+
+            {/* EMPTY */}
+            {filteredData.length === 0 && (
+              <Box textAlign="center" py={7}>
+                <Typography fontWeight={600} mb={1}>
+                  No appointments found
+                </Typography>
+                <Typography fontSize={13} color="#64748b">
+                  You don’t have any appointments in this category.
+                </Typography>
+              </Box>
+            )}
+
+            {/* PAGINATION */}
+            {filteredData.length > ITEMS_PER_PAGE && (
+              <Stack alignItems="center" mt={5}>
+                <Pagination
+                  count={totalPages}
+                  page={page}
+                  onChange={(_, value) => setPage(value)}
+                />
+              </Stack>
+            )}
+          </Box>
+        </Box>
       </Box>
-    )}
-
-    {/* PAGINATION */}
-    {filteredData.length > ITEMS_PER_PAGE && (
-      <Stack alignItems="center" mt={5}>
-        <Pagination
-          count={totalPages}
-          page={page}
-          onChange={(_, value) => setPage(value)}
-        />
-      </Stack>
-    )}
-  </Box>
-</Box>
-  </>
-);
+    </>
+  );
 }
 
 

@@ -65,14 +65,14 @@ const Navbar: React.FC<NavbarProps> = ({ onSignupClick }) => {
     
     checkAuthState();
 
-    // Listen for storage changes 
+    //  storage changes 
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "userId" || e.key === "userName" || e.key === "email") {
         checkAuthState();
       }
     };
 
-    // Listen for custom auth change events
+    // custom auth change events
     const handleAuthChange = () => {
       checkAuthState();
     };
@@ -166,7 +166,7 @@ const historyList = Array.isArray(historyPayload)
                   letterSpacing: "0.5px",
                 }}
               >
-                MediCore
+                Averon
               </Typography>
             </Stack>
 
@@ -220,237 +220,263 @@ const historyList = Array.isArray(historyPayload)
                   </IconButton>
 
                   {/* PROFILE MODAL */}
-                  <Modal
-                    open={profileModalOpen}
-                    onClose={handleProfileClose}
-                    closeAfterTransition
-                    slots={{ backdrop: Backdrop }}
-                    slotProps={{
-                      backdrop: {
-                        timeout: 500,
-                      },
-                    }}
-                  >
-                    <Fade in={profileModalOpen}>
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          width: { xs: '90%', sm: '500px' },
-                          maxHeight: '80vh',
-                          overflow: 'auto',
-                          bgcolor: 'rgba(30, 41, 59, 0.75)',
-                          backdropFilter: 'blur(18px)',
-                          border: '1px solid rgba(255,255,255,0.15)',
-                          boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                  
+<Modal
+  open={profileModalOpen}
+  onClose={handleProfileClose}
+  closeAfterTransition
+  slots={{ backdrop: Backdrop }}
+  slotProps={{
+    backdrop: {
+      timeout: 500,
+    },
+  }}
+>
+  <Fade in={profileModalOpen}>
+    <Box
+      sx={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: { xs: "90%", sm: "500px" },
+        maxHeight: "80vh",
+        overflow: "auto",
 
-                          borderRadius: '16px',
+        bgcolor: "#f8fbff",
+        border: "1px solid #e2e8f0",
+        boxShadow: "0 20px 40px rgba(30, 64, 175, 0.15)",
 
-                          p: 0,
-                          outline: 'none',
-                        }}
-                      >
-                        {/* Header */}
-                        <Box
-                          sx={{
-                            p: 3,
-                            borderBottom: '1px solid rgba(255,255,255,0.1)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 2,
-                          }}
-                        >
-                          <Avatar
-                            sx={{
-                              bgcolor: "#93c5fd",
-                              color: "#1e293b",
-                              width: 60,
-                              height: 60,
-                              fontSize: "20px",
-                              fontWeight: 600,
-                            }}
-                          >
-                            {getInitials(userData.userName)}
-                          </Avatar>
-                          <Box>
-                            <Typography variant="h6" sx={{ color: "#fff", fontWeight: 600 }}>
-                              {userData.userName}
-                            </Typography>
-                            <Typography variant="body2" sx={{ color: "#94a3b8" }}>
-                              {userData.email}
-                            </Typography>
-                          </Box>
-                        </Box>
-
-                        {/* Content */}
-                        <Box sx={{ p: 3 }}>
-                          {/* User Details */}
-                          <Box sx={{ mb: 3 }}>
-                            <Typography variant="subtitle1" sx={{ color: "#fff", fontWeight: 600, mb: 2 }}>
-                              Profile Information
-                            </Typography>
-                            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Typography variant="body2" sx={{ color: "#94a3b8" }}>User ID:</Typography>
-                                <Chip
-                                  label={userData.userId}
-                                  size="small"
-                                  sx={{
-                                    bgcolor: 'rgba(147, 197, 253, 0.1)',
-                                    color: '#93c5fd',
-                                    fontSize: '12px',
-                                  }}
-                                />
-                              </Box>
-                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Typography variant="body2" sx={{ color: "#94a3b8" }}>Email:</Typography>
-                                <Typography variant="body2" sx={{ color: "#fff" }}>{userData.email}</Typography>
-                              </Box>
-                            </Box>
-                          </Box>
-
-                          <Divider sx={{ bgcolor: "rgba(255,255,255,0.1)", my: 2 }} />
-
-                          {/* Appointments Section */}
-<Box sx={{ mb: 3 }}>
-  <Typography
-    variant="subtitle1"
-    sx={{ color: "#fff", fontWeight: 600, mb: 2 }}
-  >
-    Recent Appointments
-  </Typography>
-
-  <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-    {historyLoading ? (
-      <Card
+        borderRadius: "16px",
+        p: 0,
+        outline: "none",
+      }}
+    >
+      {/* HEADER */}
+      <Box
         sx={{
-          bgcolor: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(255,255,255,0.15)",
-          borderRadius: "10px",
+          p: 3,
+          borderBottom: "1px solid #e2e8f0",
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          bgcolor: "#eff6ff",
+          borderTopLeftRadius: "16px",
+          borderTopRightRadius: "16px",
         }}
       >
-        <CardContent sx={{ p: 2, textAlign: "center" }}>
-          <Typography variant="body2" sx={{ color: "#94a3b8" }}>
-            Loading appointments...
+        <Avatar
+          sx={{
+            bgcolor: "#3b82f6",
+            color: "#fff",
+            width: 60,
+            height: 60,
+            fontSize: "20px",
+            fontWeight: 600,
+          }}
+        >
+          {getInitials(userData.userName)}
+        </Avatar>
+
+        <Box>
+          <Typography variant="h6" sx={{ color: "#0f172a", fontWeight: 600 }}>
+            {userData.userName}
           </Typography>
-        </CardContent>
-      </Card>
-    ) : historyList.length > 0 ? (
-      historyList.slice(0, 2).map((item: any, index: number) => {
-        const doctor = item?.doctorId || {};
-        const st = (item.status || "").toLowerCase();
+          <Typography variant="body2" sx={{ color: "#64748b" }}>
+            {userData.email}
+          </Typography>
+        </Box>
+      </Box>
 
-        let color = "#fbbf24"; // default (pending)
-        if (st.includes("complete")) color = "#22c55e";
-        else if (st.includes("cancel") || st.includes("reject"))
-          color = "#ef4444";
-
-        return (
-          <Card
-            key={index}
-            sx={{
-              bgcolor: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              borderRadius: "10px",
-            }}
+      {/* CONTENT */}
+      <Box sx={{ p: 3 }}>
+        {/* PROFILE INFO */}
+        <Box sx={{ mb: 3 }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ color: "#0f172a", fontWeight: 600, mb: 2 }}
           >
-            <CardContent sx={{ p: 2 }}>
-              <Typography
-                variant="body2"
-                sx={{ color: "#fff", fontWeight: 500 }}
-              >
-                Dr. {doctor.name || "Unknown Doctor"}
-              </Typography>
+            Profile Information
+          </Typography>
 
-              <Typography
-                variant="caption"
-                sx={{ color: "#94a3b8", display: "block", mt: 0.5 }}
-              >
-                {item.date} • {item.time}
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="body2" sx={{ color: "#64748b" }}>
+                User ID:
               </Typography>
 
               <Chip
-                label={item.status || "Scheduled"}
+                label={userData.userId}
                 size="small"
                 sx={{
-                  mt: 1,
-                  bgcolor: `${color}20`,
-                  color: color,
-                  fontSize: "10px",
+                  bgcolor: "#eff6ff",
+                  color: "#2563eb",
+                  fontSize: "12px",
                 }}
               />
-            </CardContent>
-          </Card>
-        );
-      })
-    ) : (
-      <Card
-        sx={{
-          bgcolor: "rgba(255,255,255,0.08)",
-          border: "1px solid rgba(255,255,255,0.15)",
-          borderRadius: "10px",
-        }}
-      >
-        <CardContent sx={{ p: 2 }}>
-          <Typography variant="body2" sx={{ color: "#94a3b8" }}>
-            No appointments yet
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography variant="body2" sx={{ color: "#64748b" }}>
+                Email:
+              </Typography>
+
+              <Typography variant="body2" sx={{ color: "#0f172a" }}>
+                {userData.email}
+              </Typography>
+            </Box>
+          </Box>
+        </Box>
+
+        <Divider sx={{ bgcolor: "#e2e8f0", my: 2 }} />
+
+        {/* RECENT APPOINTMENTS */}
+        <Box sx={{ mb: 3 }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ color: "#0f172a", fontWeight: 600, mb: 2 }}
+          >
+            Recent Appointments
           </Typography>
-        </CardContent>
-      </Card>
-    )}
-  </Box>
 
-  {/* VIEW ALL BUTTON */}
-  <Box sx={{ mt: 2, textAlign: "right" }}>
-    <Link href="/appointmentHistory" style={{ textDecoration: "none" }}>
-      <Typography
-        sx={{
-          color: "#93c5fd",
-          fontSize: 13,
-          fontWeight: 500,
-          cursor: "pointer",
-          "&:hover": { textDecoration: "underline" },
-        }}
-      >
-        View All →
-      </Typography>
-    </Link>
-  </Box>
-</Box>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            {historyLoading ? (
+              <Card
+                sx={{
+                  bgcolor: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "10px",
+                }}
+              >
+                <CardContent sx={{ p: 2, textAlign: "center" }}>
+                  <Typography variant="body2" sx={{ color: "#64748b" }}>
+                    Loading appointments...
+                  </Typography>
+                </CardContent>
+              </Card>
+            ) : historyList.length > 0 ? (
+              historyList.slice(0, 2).map((item, index) => {
+                const doctor = item?.doctorId || {};
+                const st = (item.status || "").toLowerCase();
 
+                let color = "#f59e0b";
+                if (st.includes("complete")) color = "#22c55e";
+                else if (st.includes("cancel") || st.includes("reject"))
+                  color = "#ef4444";
 
+                return (
+                  <Card
+                    key={index}
+                    sx={{
+                      bgcolor: "#ffffff",
+                      border: "1px solid #e2e8f0",
+                      borderRadius: "10px",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                    }}
+                  >
+                    <CardContent sx={{ p: 2 }}>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "#0f172a", fontWeight: 500 }}
+                      >
+                        Dr. {doctor.name || "Unknown Doctor"}
+                      </Typography>
 
-                          {/* <Link href="/appointmentHistory">
-                            Go to Destination
-                          </Link> */}
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "#64748b", display: "block", mt: 0.5 }}
+                      >
+                        {item.date} • {item.time}
+                      </Typography>
 
-                          <Divider sx={{ bgcolor: "rgba(255,255,255,0.1)", my: 2 }} />
+                      <Chip
+                        label={item.status || "Scheduled"}
+                        size="small"
+                        sx={{
+                          mt: 1,
+                          bgcolor: `${color}15`,
+                          color: color,
+                          fontSize: "10px",
+                          fontWeight: 500,
+                        }}
+                      />
+                    </CardContent>
+                  </Card>
+                );
+              })
+            ) : (
+              <Card
+                sx={{
+                  bgcolor: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "10px",
+                }}
+              >
+                <CardContent sx={{ p: 2 }}>
+                  <Typography variant="body2" sx={{ color: "#64748b" }}>
+                    No appointments yet
+                  </Typography>
+                </CardContent>
+              </Card>
+            )}
+          </Box>
 
-                          {/* Logout Button */}
-                          <Button
-                            onClick={handleLogout}
-                            fullWidth
-                            variant="contained"
-                            sx={{
-                              bgcolor: "#ef4444",
-                              color: "#fff",
-                              borderRadius: "8px",
-                              py: 1.5,
-                              fontWeight: 500,
-                              textTransform: "none",
-                              "&:hover": {
-                                bgcolor: "#dc2626",
-                              },
-                            }}
-                          >
-                            Logout
-                          </Button>
-                        </Box>
-                      </Box>
-                    </Fade>
-                  </Modal>
+          {/* VIEW ALL */}
+          <Box sx={{ mt: 2, textAlign: "right" }}>
+            <Link href="/appointmentHistory" style={{ textDecoration: "none" }}>
+              <Typography
+                sx={{
+                  color: "#2563eb",
+                  fontSize: 13,
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  "&:hover": { textDecoration: "underline" },
+                }}
+              >
+                View All →
+              </Typography>
+            </Link>
+          </Box>
+        </Box>
+
+        <Divider sx={{ bgcolor: "#e2e8f0", my: 2 }} />
+
+        {/* LOGOUT */}
+        <Button
+          onClick={handleLogout}
+          fullWidth
+          variant="contained"
+          sx={{
+            bgcolor: "#ef4444",
+            color: "#fff",
+            borderRadius: "8px",
+            py: 1.5,
+            fontWeight: 500,
+            textTransform: "none",
+            boxShadow: "0 8px 20px rgba(239,68,68,0.2)",
+            "&:hover": {
+              bgcolor: "#dc2626",
+            },
+          }}
+        >
+          Logout
+        </Button>
+      </Box>
+    </Box>
+  </Fade>
+</Modal>
+
                 </>
               ) : (
                 <Button
