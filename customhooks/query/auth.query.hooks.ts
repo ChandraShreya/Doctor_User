@@ -217,7 +217,7 @@ export const useLogoutMutation = () => {
     onError: (error: any) => {
       console.log("Logout error:", error);
 
-      // fallback cleanup
+      
       const cookies = new Cookies();
       cookies.remove("token", { path: "/" });
       cookies.remove("token", { path: "/api" });

@@ -24,7 +24,6 @@ export default function Footer() {
       sx={{
         bgcolor: "#0b1220",
         color: "#94a3b8",
-        mt: 10,
       }}
     >
       <Container maxWidth="lg" sx={{ py: 8 }}>
@@ -142,7 +141,7 @@ export default function Footer() {
               Subscribe to get latest updates and offers.
             </Typography>
 
-            <Box sx={{ display: "flex", gap: 1 }}>
+            {/* <Box sx={{ display: "flex", gap: 1 }}>
               <TextField
                 placeholder="Email address"
                 size="small"
@@ -163,7 +162,7 @@ export default function Footer() {
               >
                 Join
               </Button>
-            </Box>
+            </Box> */}
 
             {/* SOCIAL */}
             <Box sx={{ display: "flex", gap: 1.5, mt: 3 }}>
