@@ -28,20 +28,25 @@ export default function HistoryPage() {
   const payload = data?.data ?? data;
   const history = Array.isArray(payload) ? payload : payload?.data ?? [];
 
-  const filteredData = history.filter((item: any) => {
-    const st = (item.status || "").toLowerCase();
+const filteredData = history.filter((item: any) => {
+  const st = (item.status || "").toLowerCase().trim();
 
-    if (filter === "upcoming")
-      return st.includes("pending") || st.includes("confirm") || st.includes("accept");
+  if (filter === "upcoming") {
+    return ["pending"].some(s => st.includes(s));
+  }
 
-    if (filter === "completed")
-      return st.includes("complete") || st.includes("done");
+  if (filter === "completed") {
+    return ["confirmed"].some(s => st.includes(s));
+  }
 
-    if (filter === "cancelled")
-      return st.includes("reject") || st.includes("cancel") || st.includes("declin");
+  if (filter === "cancelled") {
+    return ["cancelled"].some(s => st.includes(s));
+  }
 
-    return true;
-  });
+  return true;
+});
+console.log("FULL HISTORY =>", history);
+console.log("STATUS VALUES =>", history.map((i: any) => i.status));
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
 
@@ -77,13 +82,13 @@ export default function HistoryPage() {
       const st = (item.status || "").toLowerCase();
 
       if (type === "upcoming")
-        return st.includes("pending") || st.includes("confirm") || st.includes("accept");
+        return st.includes("pending") ;
 
       if (type === "completed")
-        return st.includes("complete") || st.includes("done");
+        return st.includes("complete") ;
 
       if (type === "cancelled")
-        return st.includes("reject") || st.includes("cancel") || st.includes("declin");
+        return st.includes("reject") ;
 
       return true;
     }).length;

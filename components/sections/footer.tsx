@@ -141,28 +141,6 @@ export default function Footer() {
               Subscribe to get latest updates and offers.
             </Typography>
 
-            {/* <Box sx={{ display: "flex", gap: 1 }}>
-              <TextField
-                placeholder="Email address"
-                size="small"
-                fullWidth
-                sx={{
-                  bgcolor: "#111827",
-                  borderRadius: 1,
-                  input: { color: "#fff" },
-                }}
-              />
-              <Button
-                variant="contained"
-                sx={{
-                  bgcolor: "#3b82f6",
-                  textTransform: "none",
-                  px: 3,
-                }}
-              >
-                Join
-              </Button>
-            </Box> */}
 
             {/* SOCIAL */}
             <Box sx={{ display: "flex", gap: 1.5, mt: 3 }}>
