@@ -1,7 +1,8 @@
 
 
 "use client";
-import { useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
+import { useMutation, UseMutationResult, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import { Cookies } from "react-cookie";
 import { useGlobalHooks } from "../globalHooks/globalHooks";
 import { toast } from "sonner";
@@ -30,7 +31,6 @@ type LoginResponse = {
 };
 
 
-//custom query
 // signUp
 export const useSignUpMutation = () => {
   // const cookies = new Cookies()
@@ -247,7 +247,7 @@ export const useUserProfileQuery = () => {
       const response = await axiosInstance.get(endpoints.auth.profile);
       return response.data;
     },
-    enabled: !!token, // Automatically fetch when user is logged in
+    enabled: !!token, 
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
 };
@@ -298,19 +298,25 @@ export const useResetPasswordMutation = () => {
 
 
 export function useUserHistory(doctorId?: string) {
-	return useQuery({
+	const [userId, setUserId] = useState<string | null>(null);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const id = localStorage.getItem("userId");
+			setUserId(id);
+		}
+	}, []);
+
+	const query = useQuery({
 		queryKey: ["user", "history", doctorId || "all"],
 		queryFn: async () => {
-			let userId: string | undefined;
-			if (typeof window !== "undefined") {
-				userId = localStorage.getItem("userId") || undefined;
-			}
-
-
-			const res = await getHistory({ userId, doctorId });
+			const res = await getHistory({ userId: userId || undefined, doctorId });
 			return res;
 		},
+		enabled: !!userId,
 	});
+
+	return query;
 }
 
 export default useUserHistory;
