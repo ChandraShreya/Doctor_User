@@ -27,6 +27,7 @@ interface Props {
 const AppointmentModal = ({ open, onClose, doctor, onSignin }: Props) => {
   const [date, setDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
+  const [patientName, setPatientName] = useState("");
 
   // Fetch slots using the  query hook
   const { data: slotData, isLoading } = useDoctorSlotsQuery(
@@ -82,7 +83,7 @@ const handleBook = () => {
   bookAppointment(
     {
       userId,
-      name: userName,
+      name: patientName,
       doctorId: doctor._id,
       date,
       time: selectedSlot,
@@ -228,6 +229,8 @@ return (
 
             <TextField
               fullWidth
+              value={patientName}
+              onChange={(e) => setPatientName(e.target.value)}
               placeholder="Enter patient name"
               sx={{
                 "& .MuiOutlinedInput-root": {
