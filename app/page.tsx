@@ -62,6 +62,10 @@ export default function Home() {
       <SignIn
         open={signinOpen}
         handleClose={() => setSigninOpen(false)}
+        onSwitchToSignup={() => {
+          setSigninOpen(false);
+          setSignupOpen(true);
+        }}
       />
       <HeroBanner />
       <AboutSection />

@@ -17,7 +17,12 @@ import AppointmentModal from "./appointment-form";
 import DoctorDetailsModal from "./doctor-details-modal";
 import { useDoctorMutation } from "@/customhooks/query/doctor.query.hooks";
 
-const DoctorListPage = () => {
+interface DoctorListPageProps {
+  onSignup?: () => void;
+  onSignin?: () => void;
+}
+
+const DoctorListPage = ({ onSignup, onSignin }: DoctorListPageProps) => {
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
@@ -412,6 +417,7 @@ const DoctorListPage = () => {
         open={openModal}
         onClose={() => setOpenModal(false)}
         doctor={selectedDoctor}
+        onSignin={onSignin}
       />
       <DoctorDetailsModal
         open={openDetailsModal}

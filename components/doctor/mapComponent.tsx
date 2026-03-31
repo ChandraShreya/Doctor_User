@@ -71,17 +71,13 @@ const MapComponent = ({ data, center, selectedId }: any) => {
 
   return (
     <MapContainer
-  center={[center.lat, center.lng]}
-  zoom={13}
-  style={{ height: "100%", width: "100%" }}
->
-  <ResizeMap />   {/* ✅ ADD HERE */}
-
-  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      center={[center.lat, center.lng]}
+      zoom={13}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       <ResizeMap />
       <ChangeView center={center} />
-
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       {data?.map((item: any) => {
         const [lng, lat] = item.location.coordinates;

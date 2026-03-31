@@ -24,9 +24,10 @@ import ResetPasswordModal from "./resetpassword-modal";
 interface Props {
   open: boolean;
   handleClose: () => void;
+  onSwitchToSignup?: () => void;
 }
 
-const SignIn: React.FC<Props> = ({ open, handleClose }) => {
+const SignIn: React.FC<Props> = ({ open, handleClose, onSwitchToSignup }) => {
   const { register, handleSubmit } = useForm();
   const { mutateAsync, isPending } = useSignInMutation();
   const [openReset, setOpenReset] = useState(false);
@@ -295,6 +296,7 @@ const SignIn: React.FC<Props> = ({ open, handleClose }) => {
                 component="span"
                 onClick={() => {
                   handleClose();
+                  onSwitchToSignup?.();
                 }}
                 sx={{
                   fontWeight: 600,

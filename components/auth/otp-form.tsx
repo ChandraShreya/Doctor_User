@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import {
@@ -12,9 +11,6 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
-
-// import { useOtpMutation } from "@/customHooks/query/auth.query.hooks";
-// import { useForm } from "react-hook-form";
 import { useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useOtpMutation } from "@/customhooks/query/auth.query.hooks";

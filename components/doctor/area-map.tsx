@@ -538,7 +538,12 @@ const Map = dynamic(() => import("./mapComponent"), { ssr: false });
 
 const nearestDistanceOptions = [1000, 2000, 5000, 10000];
 
-const AreaMap = () => {
+interface AreaMapProps {
+  onSignup?: () => void;
+  onSignin?: () => void;
+}
+
+const AreaMap = ({ onSignup, onSignin }: AreaMapProps) => {
   const [geoError, setGeoError] = useState<string | null>(null);
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [radius, setRadius] = useState<number>(5000);
@@ -1026,13 +1031,11 @@ const AreaMap = () => {
                   }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    window.open(
-                      `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
-                      "_blank"
-                    );
+                    setLocation({ lat, lng });
+                    setSelectedId(item._id);
                   }}
                 >
-                  Directions →
+                  On Maps
                 </Button>
               </Box>
             </Card>

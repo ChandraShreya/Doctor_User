@@ -21,9 +21,10 @@ interface Props {
   open: boolean;
   onClose: () => void;
   doctor: any;
+  onSignin?: () => void;
 }
 
-const AppointmentModal = ({ open, onClose, doctor }: Props) => {
+const AppointmentModal = ({ open, onClose, doctor, onSignin }: Props) => {
   const [date, setDate] = useState("");
   const [selectedSlot, setSelectedSlot] = useState("");
 
@@ -72,7 +73,9 @@ const handleBook = () => {
   const userName = localStorage.getItem("userName") || localStorage.getItem("email");
 
   if (!userId || !userName) {
-    toast.error("login please");
+    toast.error("Please login to book an appointment");
+    onSignin?.();
+    onClose();
     return;
   }
 
