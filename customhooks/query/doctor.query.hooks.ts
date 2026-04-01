@@ -3,20 +3,9 @@ import { useGlobalHooks } from "../globalHooks/globalHooks";
 import { toast } from "sonner";
 import { DoctorListFunction, GetDoctorSlotsFunction } from "@/api/function/doctor.api";
 import { BookAppointmentFunction } from "@/api/function/appointment.api";
+import { DoctorListResponse } from "@/typescript/interface/doctor.interface";
 // import { DoctorListFunction, GetDoctorSlotsFunction } from "@/api/functions/doctor.api";
 // import { BookAppointmentFunction } from "@/api/functions/appointment.api";
-
-
-type DoctorFilterPayload = {
-  department?: string[];
-  search?: string;
-};
-
-type DoctorListResponse = {
-  status: boolean;
-  message: string;
-  data: any[];
-};
 
 
 export const useDoctorsQuery = () => {

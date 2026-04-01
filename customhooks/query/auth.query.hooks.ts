@@ -15,25 +15,11 @@ import { LoginFunction } from "@/api/function/signIn.api";
 import { ResetLinkFunction } from "@/api/function/resetLink.api";
 import { ResetPasswordFunction } from "@/api/function/resetPassword.api";
 import getHistory from "@/api/function/patientHistory.api";
-
-
-type LoginResponse = {
-  status: boolean;
-  message: string;
-  token?: string;
-  data?: {
-    id: string;
-    email: string;
-    first_name?: string;
-    last_name?: string;
-    name?: string; 
-  };
-};
+import { LoginResponse } from "@/typescript/interface/auth.interface";
 
 
 // signUp
 export const useSignUpMutation = () => {
-  // const cookies = new Cookies()
   const { queryClient } = useGlobalHooks();
   const router = useRouter()
   const cookies = new Cookies();

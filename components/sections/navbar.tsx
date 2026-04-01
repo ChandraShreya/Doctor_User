@@ -390,7 +390,7 @@ const historyList = Array.isArray(historyPayload)
                         variant="body2"
                         sx={{ color: "#0f172a", fontWeight: 500 }}
                       >
-                        Dr. {doctor.name || "Unknown Doctor"}
+                         {doctor.name || "Unknown Doctor"}
                       </Typography>
 
                       <Typography

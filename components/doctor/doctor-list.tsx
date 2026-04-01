@@ -16,11 +16,9 @@ import { useEffect, useState } from "react";
 import AppointmentModal from "./appointment-form";
 import DoctorDetailsModal from "./doctor-details-modal";
 import { useDoctorMutation } from "@/customhooks/query/doctor.query.hooks";
+import { DoctorListPageProps } from "@/typescript/interface/doctor.interface";
 
-interface DoctorListPageProps {
-  onSignup?: () => void;
-  onSignin?: () => void;
-}
+
 
 const DoctorListPage = ({ onSignup, onSignin }: DoctorListPageProps) => {
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);

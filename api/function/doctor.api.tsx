@@ -1,16 +1,8 @@
+
+import { DoctorFilterPayload, DoctorListResponse } from "@/typescript/interface/doctor.interface";
 import { axiosInstance } from "../axios/axios";
 import { endpoints } from "../endpoints/endpoints";
 
-export type DoctorFilterPayload = {
-  department?: string[];
-  search?: string;
-};
-
-export type DoctorListResponse = {
-  status: boolean;
-  message: string;
-  data: any[];
-};
 
 export const DoctorListFunction = async (
   payload?: DoctorFilterPayload

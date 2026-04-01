@@ -1,6 +1,7 @@
 import { MutationFunction } from "@tanstack/react-query";
 import { axiosInstance } from "../axios/axios";
 import { endpoints } from "../endpoints/endpoints";
+import { LoginPayload, LoginResponse } from "@/typescript/interface/auth.interface";
 
 export const LoginFunction: MutationFunction<
   LoginResponse,

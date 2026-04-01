@@ -10,7 +10,10 @@ import {
   Box,
   Divider,
   Grid,
+  InputAdornment,
 } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from "@mui/icons-material/Google";
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
@@ -31,6 +34,7 @@ const SignIn: React.FC<Props> = ({ open, handleClose, onSwitchToSignup }) => {
   const { register, handleSubmit } = useForm();
   const { mutateAsync, isPending } = useSignInMutation();
   const [openReset, setOpenReset] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data: any) => {
     try {
@@ -116,7 +120,7 @@ const SignIn: React.FC<Props> = ({ open, handleClose, onSwitchToSignup }) => {
           {/* BODY */}
           <Box sx={{ px: 4, py: 3 }}>
             {/* GOOGLE */}
-            <Button
+            {/* <Button
               fullWidth
               startIcon={<GoogleIcon />}
               sx={{
@@ -134,9 +138,9 @@ const SignIn: React.FC<Props> = ({ open, handleClose, onSwitchToSignup }) => {
               }}
             >
               Continue with Google
-            </Button>
+            </Button> */}
 
-            <Divider sx={{ my: 2 }}>OR</Divider>
+            {/* <Divider sx={{ my: 2 }}>OR</Divider> */}
 
             {/* FORM */}
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -173,7 +177,7 @@ const SignIn: React.FC<Props> = ({ open, handleClose, onSwitchToSignup }) => {
                   {/* PASSWORD */}
                   <TextField
                     {...register("password")}
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     fullWidth
                     variant="outlined"
@@ -193,6 +197,20 @@ const SignIn: React.FC<Props> = ({ open, handleClose, onSwitchToSignup }) => {
                       "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
                         border: "2px solid #1976d2",
                       },
+                    }}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label={showPassword ? "Hide password" : "Show password"}
+                            onClick={() => setShowPassword((show) => !show)}
+                            edge="end"
+                            size="small"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
                     }}
                   />
 

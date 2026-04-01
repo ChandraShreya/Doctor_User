@@ -6,19 +6,19 @@ import Link from "next/link";
 
 
 const images = [
-  "/images/Surgery.jpg",      
-  "/images/DoctorConsultation.jpg", 
-  "/images/patientCare.jpg",           
+  "/images/Surgery.jpg",
+  "/images/DoctorConsultation.jpg",
+  "/images/patientCare.jpg",
 ];
 
 const HeroBanner = () => {
   const [bgIndex, setBgIndex] = useState(0);
 
-  
+
   useEffect(() => {
     const interval = setInterval(() => {
       setBgIndex((prev) => (prev + 1) % images.length);
-    }, 5000); 
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -73,47 +73,50 @@ const HeroBanner = () => {
 
         {/*  BUTTONS */}
         <Stack direction="row" spacing={2}>
-          <Button
-            variant="contained"
-            sx={{
-              px: 4,
-              py: 1.5,
-              borderRadius: "10px",
-              textTransform: "none",
-              fontWeight: 600,
-              background:
-                "linear-gradient(135deg, #1976d2, #42a5f5)",
-              boxShadow: "0 6px 20px rgba(25,118,210,0.4)",
-              "&:hover": {
+          <Link href="/doctor" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              sx={{
+                px: 4,
+                py: 1.5,
+                borderRadius: "10px",
+                textTransform: "none",
+                fontWeight: 600,
                 background:
-                  "linear-gradient(135deg, #1565c0, #1e88e5)",
-              },
-            }}
-          >
-            Appointment
-          </Button>
+                  "linear-gradient(135deg, #1976d2, #42a5f5)",
+                boxShadow: "0 6px 20px rgba(25,118,210,0.4)",
+                "&:hover": {
+                  background:
+                    "linear-gradient(135deg, #1565c0, #1e88e5)",
+                },
+              }}
+            >
+              Appointment
+            </Button>
+          </Link>
+
 
           <Link href="/doctor" style={{ textDecoration: "none" }}>
-  <Button
-    variant="outlined"
-    sx={{
-      px: 4,
-      py: 1.5,
-      borderRadius: "10px",
-      textTransform: "none",
-      fontWeight: 600,
-      color: "#fff",
-      borderColor: "rgba(255,255,255,0.6)",
-      backdropFilter: "blur(6px)",
-      "&:hover": {
-        borderColor: "#fff",
-        backgroundColor: "rgba(255,255,255,0.1)",
-      },
-    }}
-  >
-    Find Doctor
-  </Button>
-</Link>
+            <Button
+              variant="outlined"
+              sx={{
+                px: 4,
+                py: 1.5,
+                borderRadius: "10px",
+                textTransform: "none",
+                fontWeight: 600,
+                color: "#fff",
+                borderColor: "rgba(255,255,255,0.6)",
+                backdropFilter: "blur(6px)",
+                "&:hover": {
+                  borderColor: "#fff",
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                },
+              }}
+            >
+              Find Doctor
+            </Button>
+          </Link>
         </Stack>
       </Box>
     </Box>
